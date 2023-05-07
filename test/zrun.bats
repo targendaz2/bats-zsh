@@ -9,7 +9,7 @@ load ../src/zsource
     assert_equal "$BATS_ZSH_SOURCE" ''
 
     # When zrun is called
-    run zrun 
+    run zrun 'fake_command'
 
     # Then zrun should fail
     assert_failure
@@ -20,8 +20,21 @@ load ../src/zsource
     zsource 'test/assets/main.sh'
 
     # When zrun is called
-    run zrun
+    run zrun 'fake_command'
 
     # Then zrun should succeed
     assert_success
+}
+
+@test "zrun fails if provided an empty string" {
+    zsource 'test/assets/main.sh'
+
+    # Given an empty string
+    command=''
+
+    # When zrun is called with that empty string
+    run zrun "$command"
+
+    # Then zrun should fail
+    assert_failure
 }
