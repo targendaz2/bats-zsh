@@ -62,3 +62,14 @@ load ../src/zsource
     # Then BATS_ZSH_SOURCE should be empty
     assert_equal "$BATS_ZSH_SOURCE" ""
 }
+
+@test "zsource fails if provided an empty string" {
+    # Given an empty string
+    file=''
+
+    # When the empty string is provided to zsource
+    run zsource "$file"
+
+    # Then zsource should fail
+    assert_failure
+}
