@@ -14,3 +14,14 @@ load ../src/zsource
     # Then zrun should fail
     assert_failure
 }
+
+@test "zrun succeeds if BATS_ZSH_SOURCE is set by zsource" {
+    # Given BATS_ZSH_SOURCE is set by zsource
+    zsource 'test/assets/main.sh'
+
+    # When zrun is called
+    run zrun
+
+    # Then zrun should succeed
+    assert_success
+}

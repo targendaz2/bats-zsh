@@ -41,7 +41,7 @@ load ../src/zsource
 
 @test "zsource fails if provided a nonexistent file" {
     # Given a nonexistent file
-    file="$test/assets/fake_zsh_script.sh"
+    file="test/assets/fake_zsh_script.sh"
     refute [ -e "$file" ]
 
     # When that file is provided to zsource
