@@ -1,4 +1,4 @@
-BATS_ZSH_WRAPPER="$(dirname $BASH_SOURCE)/zsh_wrapper.sh"
+BATS_ZSH_WRAPPER="$(dirname "${BASH_SOURCE[0]}")/zsh_wrapper.sh"
 
 zrun() {
     CMD="$1"
