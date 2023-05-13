@@ -15,7 +15,7 @@ load test_helper
     assert_failure
 }
 
-@test "fails if provided script executable" {
+@test "fails if provided script isn't executable" {
     # Given a path to a non-existent script
     script_path='test/assets/non_executable_zsh_wrapper.sh'
 
