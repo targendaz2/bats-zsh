@@ -1,6 +1,7 @@
 # bats-zsh
 
 ![license](https://img.shields.io/github/license/targendaz2/bats-zsh?label=License) ![GitHub release](https://img.shields.io/github/package-json/v/targendaz2/bats-zsh?label=Release) ![tests](https://github.com/targendaz2/bats-zsh/actions/workflows/tests.yml/badge.svg?branch=main)
+
 Wrapper enabling [Bats](https://github.com/bats-core/bats-core) to source and test Zsh scripts.
 
 ## Install
