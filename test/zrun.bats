@@ -163,3 +163,29 @@ bats_require_minimum_version 1.5.0
     # Then the $output variable should contain that output
     assert_equal "$output" "This is a failing command"
 }
+
+@test "zrun accepts an argument" {
+    zsource 'test/assets/main.sh'
+
+    # Given the name of a function that creates output
+    function=function_with_arg
+
+    # When zrun is called with that function's name
+    run zrun $function '1arg'
+
+    # Then the $output variable should contain that output
+    assert_equal "$output" "arg was '1arg'"
+}
+
+@test "zrun accepts multiple arguments" {
+    zsource 'test/assets/main.sh'
+
+    # Given the name of a function that creates output
+    function=function_with_many_args
+
+    # When zrun is called with that function's name
+    run zrun $function 'arg1' 'arg2' 'arg3'
+
+    # Then the $output variable should contain that output
+    assert_equal "$output" "args were 'arg3' 'arg1' 'arg2'"
+}

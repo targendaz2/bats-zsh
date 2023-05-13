@@ -7,7 +7,7 @@ zrun() {
     [ -z "$BATS_ZSH_SOURCE" ] && return 1
     [ ! -x "$BATS_ZSH_WRAPPER" ] && return 1
 
-    "$BATS_ZSH_WRAPPER" "$BATS_ZSH_SOURCE" "$CMD"
+    "$BATS_ZSH_WRAPPER" "$BATS_ZSH_SOURCE" "$@"
     return_code=$?
     return $return_code
 }
