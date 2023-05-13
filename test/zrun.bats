@@ -138,3 +138,29 @@ bats_require_minimum_version 1.5.0
     # Then zrun should fail
     assert_failure
 }
+
+@test "zrun captures command output during successes" {
+    zsource 'test/assets/main.sh'
+
+    # Given the name of a function that creates output
+    function=successful_output_function
+
+    # When zrun is called with that function's name
+    run zrun $function
+
+    # Then the $output variable should contain that output
+    assert_equal "$output" "This is output"
+}
+
+@test "zrun captures command output during failures" {
+    zsource 'test/assets/main.sh'
+
+    # Given the name of a function that creates output
+    function=failing_output_function
+
+    # When zrun is called with that function's name
+    run zrun $function
+
+    # Then the $output variable should contain that output
+    assert_equal "$output" "This is a failing command"
+}
