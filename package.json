@@ -21,7 +21,8 @@
     "src"
   ],
   "scripts": {
-    "test": "bats ${CI+-t} test"
+    "test": "bats ${CI+-t} test",
+    "publish:github": "git push --follow-tags"
   },
   "devDependencies": {
     "bats": "github:bats-core/bats-core",
