@@ -5,31 +5,18 @@ bats_require_minimum_version 1.5.0
 load test_helper
 load '../load'
 
-@test "zrun fails if provided an empty string" {
-    zsource 'test/assets/main.sh'
-
-    # Given an empty string
-    command=''
-
-    # When zrun is called with that empty string
-    zrun "$command"
-
-    # Then zrun should fail
-    assert_failure
-}
-
 @test "zrun fails if BATS_ZSH_SOURCE isn't set" {
     # Given BATS_ZSH_SOURCE isn't set
     assert_equal "$BATS_ZSH_SOURCE" ''
 
     # When zrun is called
-    zrun -127 'fake_command'
+    zrun -127 'fake_command' || true
 
     # Then zrun should fail
     assert_failure
 }
 
-@test "zrun doesn't fail if BATS_ZSH_SOURCE is set by zsource" {
+@test "zrun fails if \$BATS_ZSH_SOURCE doesn't exist" {
     # Given BATS_ZSH_SOURCE is set by zsource
     zsource 'test/assets/main.sh'
 
@@ -82,6 +69,19 @@ load '../load'
 
     # Then zrun shouldn't fail
     assert_not_equal $status 1
+}
+
+@test "zrun fails if provided an empty string" {
+    zsource 'test/assets/main.sh'
+
+    # Given an empty string
+    command=''
+
+    # When zrun is called with that empty string
+    zrun "$command" || true
+
+    # Then zrun should fail
+    assert_failure
 }
 
 @test "zrun succeeds if the function it runs succeeds" {
