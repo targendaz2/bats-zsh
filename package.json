@@ -1,10 +1,16 @@
 {
   "name": "bats-zsh",
-  "version": "0.1.0",
-  "description": "Wrapper enabling Bats to test Zsh scripts",
-  "main": "index.js",
-  "scripts": {
-    "test": "bats ${CI+-t} test"
+  "version": "1.0.0",
+  "description": "Wrapper enabling Bats to test functions in Zsh scripts",
+  "homepage": "https://github.com/targendaz2/bats-zsh#readme",
+  "license": "CC0-1.0",
+  "author": "David Rosenberg <david@dgrdev.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/targendaz2/bats-zsh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/targendaz2/bats-zsh/issues"
   },
   "directories": {
     "lib": "src",
@@ -14,16 +20,9 @@
     "load.bash",
     "src"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/targendaz2/bats-zsh.git"
+  "scripts": {
+    "test": "bats ${CI+-t} test"
   },
-  "author": "David G Rosenberg",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/targendaz2/bats-zsh/issues"
-  },
-  "homepage": "https://github.com/targendaz2/bats-zsh#readme",
   "devDependencies": {
     "bats": "github:bats-core/bats-core",
     "bats-assert": "github:bats-core/bats-assert",
