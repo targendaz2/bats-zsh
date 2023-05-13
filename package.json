@@ -22,7 +22,7 @@
     "src"
   ],
   "scripts": {
-    "test": "bats ${CI+-t} test",
+    "test": "bats ${CI+-t}",
     "publish:github": "git push --follow-tags"
   },
   "devDependencies": {
