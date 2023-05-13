@@ -6,6 +6,19 @@ load ../src/zsource
 
 bats_require_minimum_version 1.5.0
 
+@test "zrun fails if provided an empty string" {
+    zsource 'test/assets/main.sh'
+
+    # Given an empty string
+    command=''
+
+    # When zrun is called with that empty string
+    run zrun "$command"
+
+    # Then zrun should fail
+    assert_failure
+}
+
 @test "zrun fails if BATS_ZSH_SOURCE isn't set" {
     # Given BATS_ZSH_SOURCE isn't set
     assert_equal "$BATS_ZSH_SOURCE" ''
@@ -17,15 +30,27 @@ bats_require_minimum_version 1.5.0
     assert_failure
 }
 
-@test "zrun fails if BATS_ZSH_WRAPPER isn't set" {
-    zsource 'test/assets/main.sh'
-
-    # Given BATS_ZSH_WRAPPER isn't set
-    BATS_ZSH_WRAPPER=''
-    assert_equal "$BATS_ZSH_WRAPPER" ''
+@test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
+    # Given BATS_ZSH_WRAPPER doesn't exist
+    BATS_ZSH_WRAPPER='/tmp/fake828282/file.sh'
+    run [ -e "$BATS_ZSH_WRAPPER" ]
+    assert_failure
 
     # When zrun is called
-    run -127 zrun 'fake_command'
+    run zrun 'fake_command'
+
+    # Then zrun should fail
+    assert_failure
+}
+
+@test "zrun fails if BATS_ZSH_WRAPPER isn't executable" {
+    # Given BATS_ZSH_WRAPPER isn't an executable file
+    BATS_ZSH_WRAPPER='tests/assets/non_executable_zsh_wrapper.sh'
+    run [ -x "$BATS_ZSH_WRAPPER" ]
+    assert_failure
+
+    # When zrun is called
+    run zrun 'fake_command'
 
     # Then zrun should fail
     assert_failure
@@ -41,20 +66,6 @@ bats_require_minimum_version 1.5.0
 
     # Then zrun should succeed
     assert_success
-}
-
-@test "zrun fails if provided an empty string" {
-    skip
-    zsource 'test/assets/main.sh'
-
-    # Given an empty string
-    command=''
-
-    # When zrun is called with that empty string
-    run zrun "$command"
-
-    # Then zrun should fail
-    assert_failure
 }
 
 @test "zrun succeeds if the function it runs succeeds" {
