@@ -4,8 +4,6 @@
 # shellcheck source=/dev/null
 source_script="$1"
 
-[ ! -x "$source_script" ] && exit 1
-
 shift
 
 source "$source_script"
