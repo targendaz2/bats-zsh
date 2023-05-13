@@ -1,6 +1,12 @@
+BATS_ZSH_WRAPPER="$(dirname $BASH_SOURCE)/zsh_wrapper.sh"
+
 zrun() {
     CMD="$1"
+
     [ -z "$CMD" ] && return 1
     [ -z "$BATS_ZSH_SOURCE" ] && return 1
-    return 0
+
+    $CMD
+    return_code=$?
+    return $return_code
 }
