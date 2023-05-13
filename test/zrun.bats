@@ -10,21 +10,10 @@ load '../load'
     assert_equal "$BATS_ZSH_SOURCE" ''
 
     # When zrun is called
-    zrun -127 'fake_command' || true
+    zrun -127 fake_command || true
 
     # Then zrun should fail
     assert_failure
-}
-
-@test "zrun fails if \$BATS_ZSH_SOURCE doesn't exist" {
-    # Given BATS_ZSH_SOURCE is set by zsource
-    zsource 'test/assets/main.sh'
-
-    # When zrun is called
-    zrun -127 'fake_command'
-
-    # Then zrun shouldn't fail
-    assert_not_equal $status 1
 }
 
 @test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
@@ -32,11 +21,10 @@ load '../load'
 
     # Given BATS_ZSH_WRAPPER doesn't exist
     BATS_ZSH_WRAPPER='/tmp/fake828282/file.sh'
-    run [ -e "$BATS_ZSH_WRAPPER" ]
-    assert_failure
+    refute [ -e "$BATS_ZSH_WRAPPER" ]
 
     # When zrun is called
-    zrun -127 'fake_command'
+    zrun -127 fake_command || true
 
     # Then zrun should fail
     assert_failure
@@ -47,25 +35,23 @@ load '../load'
 
     # Given BATS_ZSH_WRAPPER isn't an executable file
     BATS_ZSH_WRAPPER='tests/assets/non_executable_zsh_wrapper.sh'
-    run [ -x "$BATS_ZSH_WRAPPER" ]
-    assert_failure
+    refute [ -x "$BATS_ZSH_WRAPPER" ]
 
     # When zrun is called
-    zrun -127 fake_command
+    zrun -127 fake_command || true
 
     # Then zrun should fail
     assert_failure
 }
 
-@test "zrun doesn't fail if BATS_ZSH_WRAPPER is executable" {
+@test "zrun doesn't fail if BATS_ZSH_WRAPPER exists and is executable" {
     zsource 'test/assets/main.sh'
 
-    # Given BATS_ZSH_WRAPPER is an executable file
-    run [ -x "$BATS_ZSH_WRAPPER" ]
-    assert_success
+    # Given BATS_ZSH_WRAPPER is an existing executable file
+    assert [ -x "$BATS_ZSH_WRAPPER" ]
 
     # When zrun is called
-    zrun -127 fake_command
+    zrun -127 fake_command || true
 
     # Then zrun shouldn't fail
     assert_not_equal $status 1
