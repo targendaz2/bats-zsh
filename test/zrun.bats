@@ -30,7 +30,20 @@ bats_require_minimum_version 1.5.0
     assert_failure
 }
 
+@test "zrun succeeds if BATS_ZSH_SOURCE is set by zsource" {
+    # Given BATS_ZSH_SOURCE is set by zsource
+    zsource 'test/assets/main.sh'
+
+    # When zrun is called
+    run zrun 'fake_command'
+
+    # Then zrun should succeed
+    assert_success
+}
+
 @test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
+    zsource 'test/assets/main.sh'
+
     # Given BATS_ZSH_WRAPPER doesn't exist
     BATS_ZSH_WRAPPER='/tmp/fake828282/file.sh'
     run [ -e "$BATS_ZSH_WRAPPER" ]
@@ -44,6 +57,8 @@ bats_require_minimum_version 1.5.0
 }
 
 @test "zrun fails if BATS_ZSH_WRAPPER isn't executable" {
+    zsource 'test/assets/main.sh'
+
     # Given BATS_ZSH_WRAPPER isn't an executable file
     BATS_ZSH_WRAPPER='tests/assets/non_executable_zsh_wrapper.sh'
     run [ -x "$BATS_ZSH_WRAPPER" ]
@@ -56,10 +71,12 @@ bats_require_minimum_version 1.5.0
     assert_failure
 }
 
-@test "zrun succeeds if BATS_ZSH_SOURCE is set by zsource" {
-    skip
-    # Given BATS_ZSH_SOURCE is set by zsource
+@test "zrun succeeds if BATS_ZSH_WRAPPER is executable" {
     zsource 'test/assets/main.sh'
+
+    # Given BATS_ZSH_WRAPPER is an executable file
+    run [ -x "$BATS_ZSH_WRAPPER" ]
+    assert_success
 
     # When zrun is called
     run zrun 'fake_command'
