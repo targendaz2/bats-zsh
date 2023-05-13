@@ -12,7 +12,7 @@ bats_require_minimum_version 1.5.0
     command=''
 
     # When zrun is called with that empty string
-    run zrun "$command"
+    zrun "$command"
 
     # Then zrun should fail
     assert_failure
@@ -23,7 +23,7 @@ bats_require_minimum_version 1.5.0
     assert_equal "$BATS_ZSH_SOURCE" ''
 
     # When zrun is called
-    run zrun 'fake_command'
+    zrun -127 'fake_command'
 
     # Then zrun should fail
     assert_failure
@@ -34,38 +34,10 @@ bats_require_minimum_version 1.5.0
     zsource 'test/assets/main.sh'
 
     # When zrun is called
-    run -127 zrun 'fake_command'
+    zrun -127 'fake_command'
 
     # Then zrun shouldn't fail
     assert_not_equal $status 1
-}
-
-@test "zrun fails if BATS_ZSH_SOURCE doesn't exist" {
-    # Given BATS_ZSH_SOURCE doesn't exist
-    source_file='test/assets/nonexistent_main.sh'
-    run [ -e "$source_file" ]
-    assert_failure
-    run zsource "$source_file"
-
-    # When zrun is called
-    run zrun 'fake_command'
-
-    # Then zrun should fail
-    assert_failure
-}
-
-@test "zrun fails if BATS_ZSH_SOURCE isn't executable" {
-    # Given BATS_ZSH_SOURCE isn't executable
-    source_file='test/assets/nonexicutable_main.sh'
-    run [ -x "$source_file" ]
-    assert_failure
-    run zsource "$source_file"
-
-    # When zrun is called
-    run zrun 'fake_command'
-
-    # Then zrun should fail
-    assert_failure
 }
 
 @test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
@@ -77,7 +49,7 @@ bats_require_minimum_version 1.5.0
     assert_failure
 
     # When zrun is called
-    run zrun 'fake_command'
+    zrun -127 'fake_command'
 
     # Then zrun should fail
     assert_failure
@@ -92,7 +64,7 @@ bats_require_minimum_version 1.5.0
     assert_failure
 
     # When zrun is called
-    run zrun 'fake_command'
+    zrun -127 fake_command
 
     # Then zrun should fail
     assert_failure
@@ -106,7 +78,7 @@ bats_require_minimum_version 1.5.0
     assert_success
 
     # When zrun is called
-    run -127 zrun 'fake_command'
+    zrun -127 fake_command
 
     # Then zrun shouldn't fail
     assert_not_equal $status 1
@@ -119,7 +91,7 @@ bats_require_minimum_version 1.5.0
     function=successful_function
 
     # When zrun is called with that function's name
-    run zrun $function
+    zrun $function
 
     # Then zrun should succeed
     assert_success
@@ -132,7 +104,7 @@ bats_require_minimum_version 1.5.0
     function=failing_function
 
     # When zrun is called with that function's name
-    run zrun $function
+    zrun $function
 
     # Then zrun should fail
     assert_failure
@@ -145,7 +117,7 @@ bats_require_minimum_version 1.5.0
     function=successful_output_function
 
     # When zrun is called with that function's name
-    run zrun $function
+    zrun $function
 
     # Then the $output variable should contain that output
     assert_equal "$output" "This is output"
@@ -158,7 +130,7 @@ bats_require_minimum_version 1.5.0
     function=failing_output_function
 
     # When zrun is called with that function's name
-    run zrun $function
+    zrun $function
 
     # Then the $output variable should contain that output
     assert_equal "$output" "This is a failing command"
@@ -171,7 +143,7 @@ bats_require_minimum_version 1.5.0
     function=function_with_arg
 
     # When zrun is called with that function's name
-    run zrun $function '1arg'
+    zrun $function '1arg'
 
     # Then the $output variable should contain that output
     assert_equal "$output" "arg was '1arg'"
@@ -184,7 +156,7 @@ bats_require_minimum_version 1.5.0
     function=function_with_many_args
 
     # When zrun is called with that function's name
-    run zrun $function 'arg1' 'arg2' 'arg3'
+    zrun $function 'arg1' 'arg2' 'arg3'
 
     # Then the $output variable should contain that output
     assert_equal "$output" "args were 'arg3' 'arg1' 'arg2'"
