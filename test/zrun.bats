@@ -30,15 +30,15 @@ bats_require_minimum_version 1.5.0
     assert_failure
 }
 
-@test "zrun succeeds if BATS_ZSH_SOURCE is set by zsource" {
+@test "zrun doesn't fail if BATS_ZSH_SOURCE is set by zsource" {
     # Given BATS_ZSH_SOURCE is set by zsource
     zsource 'test/assets/main.sh'
 
     # When zrun is called
-    run zrun 'fake_command'
+    run -127 zrun 'fake_command'
 
-    # Then zrun should succeed
-    assert_success
+    # Then zrun shouldn't fail
+    assert_not_equal $status 1
 }
 
 @test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
@@ -71,7 +71,7 @@ bats_require_minimum_version 1.5.0
     assert_failure
 }
 
-@test "zrun succeeds if BATS_ZSH_WRAPPER is executable" {
+@test "zrun doesn't fail if BATS_ZSH_WRAPPER is executable" {
     zsource 'test/assets/main.sh'
 
     # Given BATS_ZSH_WRAPPER is an executable file
@@ -79,17 +79,16 @@ bats_require_minimum_version 1.5.0
     assert_success
 
     # When zrun is called
-    run zrun 'fake_command'
+    run -127 zrun 'fake_command'
 
-    # Then zrun should succeed
-    assert_success
+    # Then zrun shouldn't fail
+    assert_not_equal $status 1
 }
 
 @test "zrun succeeds if the function it runs succeeds" {
-    skip
     zsource 'test/assets/main.sh'
 
-    # Given the name of a function in the zsourced file
+    # Given the name of a successful function in the zsourced file
     function=successful_function
 
     # When zrun is called with that function's name
@@ -100,15 +99,14 @@ bats_require_minimum_version 1.5.0
 }
 
 @test "zrun fails if the function it runs fails" {
-    skip
     zsource 'test/assets/main.sh'
 
-    # Given the name of a function in the zsourced file
+    # Given the name of a failing function in the zsourced file
     function=failing_function
 
     # When zrun is called with that function's name
     run zrun $function
 
-    # Then zrun should succeed
+    # Then zrun should fail
     assert_failure
 }
