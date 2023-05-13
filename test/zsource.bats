@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 load test_helper
-load ../src/zsource
+load '../load'
 
 @test "zsource succeeds if provided an existing file" {
     # Given an existing zsh file

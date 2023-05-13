@@ -1,8 +1,7 @@
 #!/usr/bin/env bats
 
 load test_helper
-load ../src/zrun
-load ../src/zsource
+load '../load'
 
 bats_require_minimum_version 1.5.0
 
