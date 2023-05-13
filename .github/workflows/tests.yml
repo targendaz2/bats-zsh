@@ -33,4 +33,4 @@ jobs:
       - run: npm install
 
       - name: Run bats tests
-        run: npm test
+        run: npm test test
