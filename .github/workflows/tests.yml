@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v3
     - run: shellcheck ./src/*
 
-  build:
+  test:
     strategy:
       matrix:
         os: ['macos-latest', 'ubuntu-latest']
@@ -32,5 +32,5 @@ jobs:
           node-version: 20
       - run: npm install
 
-      - name: bats test
+      - name: run bats tests
         run: npm test
