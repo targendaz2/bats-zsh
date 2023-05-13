@@ -41,6 +41,34 @@ bats_require_minimum_version 1.5.0
     assert_not_equal $status 1
 }
 
+@test "zrun fails if BATS_ZSH_SOURCE doesn't exist" {
+    # Given BATS_ZSH_SOURCE doesn't exist
+    source_file='test/assets/nonexistent_main.sh'
+    run [ -e "$source_file" ]
+    assert_failure
+    run zsource "$source_file"
+
+    # When zrun is called
+    run zrun 'fake_command'
+
+    # Then zrun should fail
+    assert_failure
+}
+
+@test "zrun fails if BATS_ZSH_SOURCE isn't executable" {
+    # Given BATS_ZSH_SOURCE isn't executable
+    source_file='test/assets/nonexicutable_main.sh'
+    run [ -x "$source_file" ]
+    assert_failure
+    run zsource "$source_file"
+
+    # When zrun is called
+    run zrun 'fake_command'
+
+    # Then zrun should fail
+    assert_failure
+}
+
 @test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
     zsource 'test/assets/main.sh'
 
