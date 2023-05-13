@@ -1,9 +1,9 @@
 #!/usr/bin/env bats
 
+bats_require_minimum_version 1.5.0
+
 load test_helper
 load '../load'
-
-bats_require_minimum_version 1.5.0
 
 @test "zrun fails if provided an empty string" {
     zsource 'test/assets/main.sh'
