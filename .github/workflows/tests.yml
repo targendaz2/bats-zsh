@@ -17,9 +17,15 @@ jobs:
     strategy:
       matrix:
         os: ['macos-latest', 'ubuntu-latest']
+        include:
+          - os: ubuntu-latest
+            installzsh: true
     runs-on: ${{ matrix.os }}
 
     steps:
+      - if: matrix.installzsh
+        run: sudo apt-get install zsh
+
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
