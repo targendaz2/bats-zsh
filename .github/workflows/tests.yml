@@ -44,6 +44,6 @@ jobs:
         uses: dorny/test-reporter@v1
         if: ${{ always() }}
         with:
-          name: bats-results-${{ matrix.os }}
+          name: test results (${{ matrix.os }})
           path: junit/${{ matrix.os }}.xml
           reporter: jest-junit 
