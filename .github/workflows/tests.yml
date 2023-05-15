@@ -39,7 +39,9 @@ jobs:
         run: ./node_modules/.bin/bats --recursive --formatter junit test/ > junit/${{ matrix.os }}.xml
 
       - name: Publish bats test results
-        uses: mikepenz/action-junit-report@v3
-        with:
-          report_paths: junit/${{ matrix.os }}.xml
+        uses: dorny/test-reporter@v1
         if: ${{ always() }}
+        with:
+          name: bats-results-${{ matrix.os }}
+          path: junit/${{ matrix.os }}.xml
+          reporter: jest-junit 
