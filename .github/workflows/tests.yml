@@ -27,10 +27,20 @@ jobs:
         run: sudo apt-get install zsh
 
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 20
       - run: npm install
 
+      - run: mkdir -p junit
+
       - name: Run bats tests
-        run: npm test test
+        run: ./node_modules/.bin/bats --recursive --formatter junit test/ > junit/${{ matrix.os }}.xml
+
+      - name: Upload bats test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: bats-results-${{ matrix.os }}
+          path: junit/${{ matrix.os }}.xml
+        if: ${{ always() }}
