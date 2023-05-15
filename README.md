@@ -7,7 +7,7 @@ Wrapper enabling [Bats](https://github.com/bats-core/bats-core) to source and te
 ## Install
 The preferred installation method is via `npm`:
 ```
-npm install github.com:targendaz2/bats-zsh
+npm install github:targendaz2/bats-zsh
 ```
 
 ## Usage
