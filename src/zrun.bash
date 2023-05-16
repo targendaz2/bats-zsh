@@ -2,7 +2,7 @@ BATS_ZSH_WRAPPER="$(dirname "${BASH_SOURCE[0]}")/zsh_wrapper.sh"
 
 zrun() {
     # BATS_ZSH_SOURCE checks
-    if [ -z "$BATS_ZSH_SOURCE" ]; then
+    if [ -z "$(cat "$BATS_ZSH_SOURCE")" ]; then
         echo 'You must source a script with zsource before calling zrun' | \
         batslib_decorate 'zrun failed' | \
         fail
@@ -35,8 +35,11 @@ zrun() {
         shift
     fi
 
+    # Get the file to source
+    zsh_script="$(cat "$BATS_ZSH_SOURCE")"
+
     # Run the command
-    $run_cmd "$BATS_ZSH_WRAPPER" "$BATS_ZSH_SOURCE" "$@"
+    $run_cmd "$BATS_ZSH_WRAPPER" "$zsh_script" "$@"
 
     # Don't fail so the tests can run
     return 0

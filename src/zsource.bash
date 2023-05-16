@@ -1,3 +1,5 @@
+BATS_ZSH_SOURCE="${TMPDIR}$(basename $PWD)"
+
 zsource() {
     local FILE="$1"
 
@@ -16,6 +18,6 @@ zsource() {
         return 1
     fi
     
-    export BATS_ZSH_SOURCE="$FILE"
+    echo "$FILE" > "$BATS_ZSH_SOURCE"
     return 0
 }

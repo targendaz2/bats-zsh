@@ -5,9 +5,9 @@ bats_require_minimum_version 1.5.0
 load test_helper
 load '../load'
 
-@test "zrun fails if BATS_ZSH_SOURCE isn't set" {
-    # Given BATS_ZSH_SOURCE isn't set
-    assert_equal "$BATS_ZSH_SOURCE" ''
+@test "zrun fails if \$TMPDIR/project-name isn't set" {
+    # Given $TMPDIR/bats-zsh is empty
+    assert_equal "$(cat ${TMPDIR}bats-zsh)" ''
 
     # When zrun is called
     zrun -127 fake_command || true
