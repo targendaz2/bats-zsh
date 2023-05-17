@@ -1,4 +1,4 @@
-BATS_ZSH_SOURCE="${TMPDIR}$(basename "$PWD")"
+BATS_ZSH_SOURCE="${BATS_TMPDIR}$(basename "$PWD")"
 
 zsource() {
     local FILE="$1"
