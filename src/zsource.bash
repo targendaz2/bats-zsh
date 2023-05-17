@@ -18,6 +18,6 @@ zsource() {
         return 1
     fi
     
-    echo "$FILE" > "$BATS_ZSH_SOURCE"
+    echo "$FILE" >> "$BATS_ZSH_SOURCE"
     return 0
 }
