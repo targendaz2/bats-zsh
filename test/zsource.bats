@@ -3,10 +3,6 @@
 load test_helper
 load '../load'
 
-teardown() {
-    rm -f "${BATS_TEST_TMPDIR}/zsource"
-}
-
 @test "zsource fails if provided an empty string" {
     # Given an empty string
     file=''
