@@ -4,7 +4,7 @@ load test_helper
 load '../load'
 
 teardown() {
-    rm -f "${BATS_TMPDIR}$(basename "$PWD")"
+    rm -f "${BATS_TEST_TMPDIR}/zsource"
 }
 
 @test "zsource fails if provided an empty string" {
@@ -54,7 +54,7 @@ teardown() {
     assert_success
 }
 
-@test "zsource doesn't set $BATS_TMPDIR/project-name if provided an empty string" {
+@test "zsource doesn't set ${BATS_TEST_TMPDIR}/zsource if provided an empty string" {
     # Given an empty string
     file=''
 
@@ -62,10 +62,10 @@ teardown() {
     zsource "$file" || true
 
     # Then $BATS_TMPDIR/bats-zsh should be empty
-    assert_equal "$(cat ${BATS_TMPDIR}bats-zsh)" ""
+    assert_equal "$(cat ${BATS_TEST_TMPDIR}/zsource)" ""
 }
 
-@test "zsource doesn't set $BATS_TMPDIR/project-name if provided a non-existent file" {
+@test "zsource doesn't set ${BATS_TEST_TMPDIR}/zsource if provided a non-existent file" {
     # Given a nonexistent file
     file="test/assets/fake_zsh_script.sh"
     refute [ -e "$file" ]
@@ -74,10 +74,10 @@ teardown() {
     zsource "$file" || true
 
     # Then $BATS_TMPDIR/bats-zsh should be empty
-    assert_equal "$(cat ${BATS_TMPDIR}bats-zsh)" ""
+    assert_equal "$(cat ${BATS_TEST_TMPDIR}/zsource)" ""
 }
 
-@test "zsource doesn't set $BATS_TMPDIR/project-name if provided a non-executable file" {
+@test "zsource doesn't set ${BATS_TEST_TMPDIR}/zsource if provided a non-executable file" {
      # Given a non-executable file
     file="test/assets/non_executable_main.sh"
     refute [ -x "$file" ]
@@ -86,10 +86,10 @@ teardown() {
     zsource "$file" || true
 
     # Then $BATS_TMPDIR/bats-zsh should be empty
-    assert_equal "$(cat ${BATS_TMPDIR}bats-zsh)" ""
+    assert_equal "$(cat ${BATS_TEST_TMPDIR}/zsource)" ""
 }
 
-@test "zsource sets $BATS_TMPDIR/project-name to the provided file's path if it's existing and executable" {
+@test "zsource sets ${BATS_TEST_TMPDIR}/zsource to the provided file's path if it's existing and executable" {
     # Given an existing, executable zsh file
     file="test/assets/main.sh"
     assert [ -x "$file" ]
@@ -98,5 +98,5 @@ teardown() {
     zsource "$file" || true
 
     # Then $BATS_TMPDIR/bats-zsh should contain to the file's path
-    assert_equal "$(cat ${BATS_TMPDIR}bats-zsh)" "$file"
+    assert_equal "$(cat ${BATS_TEST_TMPDIR}/zsource)" "$file"
 }
