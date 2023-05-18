@@ -147,3 +147,48 @@ load '../load'
     # Then the $output variable should contain that output
     assert_equal "$output" "args were 'arg3' 'arg1' 'arg2'"
 }
+
+@test "zrun succeeds for funcs in only the last sourced file" {
+    # Given 2 zsourced files...
+    zsource 'test/assets/main.sh'
+    zsource 'test/assets/main2.sh'
+
+    # ...And a function that only exists in the last
+    function=main2_exclusive_function
+
+    # When zrun is called with that function's name
+    zrun $function
+
+    # Then zrun should succeed
+    assert_success
+}
+
+@test "zrun succeeds for funcs in only the 1st sourced file" {
+    # Given 2 zsourced files...
+    zsource 'test/assets/main.sh'
+    zsource 'test/assets/main2.sh'
+
+    # ...And a function that only exists in the last
+    function=main_exclusive_function
+
+    # When zrun is called with that function's name
+    zrun $function
+
+    # Then zrun should succeed
+    assert_success
+}
+
+@test "if multiple funcs with the same name are sourced, zrun only uses the newest one" {
+    # Given 2 zsourced files...
+    zsource 'test/assets/main.sh'
+    zsource 'test/assets/main2.sh'
+
+    # ...And a function that exists in both
+    function=shared_function
+
+    # When zrun is called with that function's name
+    zrun $function
+
+    # Then the newest version of that function should run
+    assert_output "$output" "This is from main2.sh"
+}

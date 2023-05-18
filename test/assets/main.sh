@@ -28,6 +28,11 @@ function_with_many_args() {
     return 0
 }
 
-main1_exclusive_function() {
+main_exclusive_function() {
+    return 0
+}
+
+shared_function() {
+    echo "This is from main.sh"
     return 0
 }
