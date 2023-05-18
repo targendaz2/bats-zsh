@@ -28,6 +28,6 @@ function_with_many_args() {
     return 0
 }
 
-main1_exclusive_function() {
+main_exclusive_function() {
     return 0
 }

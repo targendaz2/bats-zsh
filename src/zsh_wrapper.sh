@@ -7,7 +7,7 @@ zsource_file="$1"
 shift
 
 # Source each file in order
-zsources=$(cat "$zsource_file")
+zsources=( $(cat "$zsource_file") )
 for zsh_script in "${zsources[@]}"; do
     source "$zsh_script"
 done
