@@ -27,3 +27,7 @@ function_with_many_args() {
     echo "args were '$3' '$1' '$2'"
     return 0
 }
+
+main1_exclusive_function() {
+    return 0
+}
