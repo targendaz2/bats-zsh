@@ -36,7 +36,7 @@ zrun() {
     fi
 
     # Get the file to source
-    zsh_script="$(head -n 1 "$BATS_ZSH_SOURCE")"
+    zsh_script="$(cat "$BATS_ZSH_SOURCE")"
 
     # Run the command
     $run_cmd "$BATS_ZSH_WRAPPER" "$zsh_script" "$@"

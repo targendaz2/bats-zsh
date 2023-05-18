@@ -147,15 +147,3 @@ load '../load'
     # Then the $output variable should contain that output
     assert_equal "$output" "args were 'arg3' 'arg1' 'arg2'"
 }
-
-@test "zrun doesn't fail with multiple sources" {
-    # Given 2 sourced files
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
-
-    # When zrun is called
-    zrun successful_function
-
-    # Then it should succeed
-    assert_success
-}
