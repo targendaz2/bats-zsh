@@ -13,12 +13,14 @@ npm install github:targendaz2/bats-zsh
 ## Usage
 This project provides the following functions:
 ### `zsource`
-Used in place of `source` to source a Zsh script.
+Used in place of `source` to source 1 or more Zsh scripts.
 ```
 @test 'zsource sample test'{
-    zsource path/to/zsh-script
+    zsource path/to/zsh-script1
+    zsource path/to/zsh-script2
 }
 ```
+When mulitple files are sourced using `zsource`, conflicts will be handled the same as `source` would. In effect, when there is a conflict, the newer version will overwrite the older one.
 ### `zrun`
 Used in place of `run` to run a function from the sourced Zsh script.
 ```
@@ -27,7 +29,7 @@ Used in place of `run` to run a function from the sourced Zsh script.
     zrun output_number_of_args arg1 arg2 arg3
 
     [ "$status" -eq 0 ]
-    [ "$output" = "there were 23 args" ]
+    [ "$output" = "there were 3 args" ]
     [ "$BATS_RUN_COMMAND" = "zrun output_number_of_args arg1 arg2 arg3" ]
 }
 ```
@@ -40,4 +42,4 @@ All variables expected from `run` will be set (i.e. `status`, `output`, and `BAT
 3. Install dependencies
 `npm install`
 4. Run tests
-`npm test`
+`npm test test`
