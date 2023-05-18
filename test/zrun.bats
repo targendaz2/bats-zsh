@@ -177,3 +177,18 @@ load '../load'
     # Then zrun should succeed
     assert_success
 }
+
+@test "if multiple funcs with the same name are sourced, zrun only uses the newest one" {
+    # Given 2 zsourced files...
+    zsource 'test/assets/main.sh'
+    zsource 'test/assets/main2.sh'
+
+    # ...And a function that exists in both
+    function=shared_function
+
+    # When zrun is called with that function's name
+    zrun $function
+
+    # Then the newest version of that function should run
+    assert_output "$output" "This is from main2.sh"
+}
