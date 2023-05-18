@@ -13,19 +13,20 @@ npm install github:targendaz2/bats-zsh
 ## Usage
 This project provides the following functions:
 ### `zsource`
-Used in place of `source` to source 1 or more Zsh scripts.
+Used in place of `source` to source 1 or more Zsh files.
 ```
 @test 'zsource sample test'{
-    zsource path/to/zsh-script1
-    zsource path/to/zsh-script2
+    zsource path/to/zsh-file1.sh
+    zsource path/to/zsh-file2.sh
 }
 ```
 When mulitple files are sourced using `zsource`, conflicts will be handled the same as `source` would. In effect, when there is a conflict, the newer version will overwrite the older one.
+
 ### `zrun`
 Used in place of `run` to run a function from the sourced Zsh script.
 ```
 @test 'output_number_of_args() outputs the number of args' {
-    zsource path/to/zsh-script
+    zsource path/to/zsh-file.sh
     zrun output_number_of_args arg1 arg2 arg3
 
     [ "$status" -eq 0 ]
@@ -34,6 +35,24 @@ Used in place of `run` to run a function from the sourced Zsh script.
 }
 ```
 All variables expected from `run` will be set (i.e. `status`, `output`, and `BATS_RUN_COMMAND`).
+
+### `zset`
+Used to set or change global variables in the sourced files.
+```
+@test 'say_my_name() outputs \$MY_NAME'{
+    zsource path/to/zsh-file.sh
+
+    zrun say_my_name
+
+    [ "$output" = "You don't have a name" ]
+
+    zset MY_NAME="David"
+
+    zrun say_my_name
+
+    [ "$output" = "Your name is David" ]
+}
+```
 
 ### Testing
 1. Clone this repository
