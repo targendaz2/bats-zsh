@@ -55,10 +55,11 @@ Used to set or change global variables in the sourced files.
 ```
 
 ### Testing
-1. Clone this repository
+1. Clone this repository:
 `git clone https://github.com/targendaz2/bats-zsh.git`
-2. Install global dependencies (npm & zsh)
-3. Install dependencies
+2. Install global dependencies:
+[Node.js](https://nodejs.org/en/download/package-manager), [ShellCheck](https://github.com/koalaman/shellcheck#user-content-installing), & [Zsh](https://nodejs.org/en/download/package-manager)
+3. Install project dependencies:
 `npm install`
-4. Run tests
+4. Run tests:
 `npm test test`
