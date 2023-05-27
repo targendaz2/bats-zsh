@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# shellcheck source=/dev/null
 
 # Get the name of the file to parse for sources from arg 1
 zsource_file="$1"
@@ -8,13 +9,11 @@ shift
 # shellcheck disable=SC2296
 zsources=("${(@f)$(<"$zsource_file")}")
 for zsh_script in "${zsources[@]}"; do
-    # shellcheck source=/dev/null
     source "$zsh_script"
 done
 
 # Source any set variables
 bats_zsh_vars="${BATS_TEST_TMPDIR}/zset"
-# shellcheck source=/dev/null
 [ -f "$bats_zsh_vars" ] && source "$bats_zsh_vars"
 
 output=$("$@")
