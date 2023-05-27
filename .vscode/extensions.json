@@ -1,9 +1,6 @@
 {
     "recommendations": [
-        "davidanson.vscode-markdownlint",
-        "github.vscode-github-actions",
         "jetmartin.bats",
-        "timonwong.shellcheck",
-        "yzhang.markdown-all-in-one"
+        "timonwong.shellcheck"
     ]
 }
