@@ -61,5 +61,7 @@ Used to set or change global variables in the sourced files.
 [Node.js](https://nodejs.org/en/download/package-manager), [ShellCheck](https://github.com/koalaman/shellcheck#user-content-installing), & [Zsh](https://nodejs.org/en/download/package-manager)
 3. Install project dependencies:
 `npm install`
-4. Run tests:
+4. Run shellcheck:
+`npm run shellcheck`
+5. Run tests:
 `npm test test`
