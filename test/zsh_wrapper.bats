@@ -41,7 +41,7 @@ setup() {
     run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" "$func_name"
 
     # zsh_wrapper should set $ouput
-    assert_equal "$output" 'This is output'
+    assert_output 'This is output'
 }
 
 @test "sets \$output to command output on failure" {
@@ -52,7 +52,7 @@ setup() {
     run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" "$func_name"
 
     # zsh_wrapper should set $ouput
-    assert_equal "$output" 'This is a failing command'
+    assert_output 'This is a failing command'
 }
 
 @test "succeeds for funcs in only the last sourced file" {
@@ -97,5 +97,20 @@ setup() {
     run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" $function
 
     # Then the newest version of that function should run
-    assert_output "$output" "This is from main2.sh"
+    assert_output 'This is from main2.sh'
+}
+
+@test "loads a variable set via zset" {
+    skip
+    zsource 'test/assets/var_funcs.sh'
+    var_value=Chris
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
 }
