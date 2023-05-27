@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "zrun",
+        "zset",
+        "zsource"
+    ],
+    "markdownlint.config": {
+        "no-duplicate-header": {
+            "siblings_only": true
+        }
+    }
+}
