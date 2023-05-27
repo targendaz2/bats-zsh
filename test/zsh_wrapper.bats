@@ -101,7 +101,6 @@ setup() {
 }
 
 @test "loads a variable set via zset" {
-    skip
     zsource 'test/assets/var_funcs.sh'
     var_value=Chris
 
@@ -113,4 +112,48 @@ setup() {
 
     # Then the variable value should be returned
     assert_output "$var_value"
+}
+
+@test "doesn't load a variable not set via zset" {
+    zsource 'test/assets/var_funcs.sh'
+
+    # Given a normally set variable
+    MY_NAME=Chris
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then nothing should be returned
+    assert_output ''
+}
+
+@test "loads multiple variable set via zset" {
+    zsource 'test/assets/var_funcs.sh'
+    salutation='Mr.'
+    first_name=Chris
+    last_name=Smith
+
+    # Given 3 zset variables
+    zset SALUTATION "$salutation"
+    zset FIRST_NAME "$first_name"
+    zset LAST_NAME "$last_name"
+
+    # When a function that includes those variables in its output is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" greet_me
+
+    # Then the output should match watch's expected
+    assert_output "Hello, $salutation $first_name $last_name!"
+}
+
+@test "doesn't fail if no variables are set" {
+    zsource 'test/assets/main.sh'
+
+    # Given no variables are set
+    :
+
+    # When a successful function is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" successful_function
+
+    # Then the command should succeed
+    assert_success
 }
