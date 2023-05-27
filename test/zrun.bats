@@ -106,7 +106,7 @@ load '../load'
     zrun $function
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "This is output"
+    assert_output 'This is output'
 }
 
 @test "zrun captures command output during failures" {
@@ -119,7 +119,7 @@ load '../load'
     zrun $function
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "This is a failing command"
+    assert_output 'This is a failing command'
 }
 
 @test "zrun accepts an argument" {
@@ -132,7 +132,7 @@ load '../load'
     zrun $function '1arg'
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "arg was '1arg'"
+    assert_output "arg was '1arg'"
 }
 
 @test "zrun accepts multiple arguments" {
@@ -145,5 +145,5 @@ load '../load'
     zrun $function 'arg1' 'arg2' 'arg3'
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "args were 'arg3' 'arg1' 'arg2'"
+    assert_output "args were 'arg3' 'arg1' 'arg2'"
 }
