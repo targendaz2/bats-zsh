@@ -147,3 +147,18 @@ load '../load'
     # Then the $output variable should contain that output
     assert_output "args were 'arg3' 'arg1' 'arg2'"
 }
+
+@test "functions called by zrun can load zset variable" {
+    skip
+    zsource 'test/assets/var_funcs.sh'
+    my_name='David Rosenberg'
+
+    # Given a zset variable
+    zset MY_NAME "$my_name"
+
+    # When zrun calls a function that should return that variable
+    zrun whats_my_name
+
+    # Then the $output variable should contain that output
+    assert_output "$my_name"
+}

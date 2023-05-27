@@ -127,7 +127,7 @@ setup() {
     assert_output ''
 }
 
-@test "loads multiple variable set via zset" {
+@test "loads multiple variables set via zset" {
     zsource 'test/assets/var_funcs.sh'
     salutation='Mr.'
     first_name=Chris
@@ -156,4 +156,130 @@ setup() {
 
     # Then the command should succeed
     assert_success
+}
+
+@test "can handle variables with spaces in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with single quotes in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value="Chris O'Smith"
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with double quotes in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris "Oreo" Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with parenthesis in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris (Oreo) Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with square brackets in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris [Oreo] Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with curly brackets in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris {Oreo} Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with dollar signs in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris "$bills" Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with back slashes in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris "\usr\local\bin" Smith'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
+}
+
+@test "can handle variables with forward slashes in them" {
+    zsource 'test/assets/var_funcs.sh'
+    var_value='Chris Smith/Smithy'
+
+    # Given a zset variable
+    zset MY_NAME "$var_value"
+
+    # When a function that returns that variable is called
+    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+
+    # Then the variable value should be returned
+    assert_output "$var_value"
 }
