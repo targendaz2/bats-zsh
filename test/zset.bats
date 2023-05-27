@@ -48,3 +48,15 @@ load '../load'
     zset_content="$(cat ${BATS_TEST_TMPDIR}/zset)"
     assert_equal "$zset_content" "$variable_name=$variable_value"
 }
+
+@test "zset doesn't write an to ${BATS_TEST_TMPDIR}/zset if provided an empty variable name but not value" {
+    # Given an empty variable name and a value
+    variable_name=''
+    variable_value='my_value'
+
+    # When the invalid assignment is provided to zset
+    run zset "$variable_name" "$variable_value"
+
+    # Then the zset file shouldn't exist
+    assert [ ! -f ${BATS_TEST_TMPDIR}/zset ]
+}
