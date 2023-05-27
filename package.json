@@ -1,6 +1,6 @@
 {
   "name": "bats-zsh",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Wrapper enabling Bats to test functions in Zsh scripts",
   "homepage": "https://github.com/targendaz2/bats-zsh#readme",
@@ -23,8 +23,7 @@
   ],
   "scripts": {
     "test": "bats ${CI+-t}",
-    "shellcheck": "shellcheck src/*",
-    "publish:github": "git push --follow-tags"
+    "shellcheck": "shellcheck src/*"
   },
   "devDependencies": {
     "bats": "github:bats-core/bats-core",

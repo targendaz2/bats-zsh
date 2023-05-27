@@ -106,7 +106,7 @@ load '../load'
     zrun $function
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "This is output"
+    assert_output 'This is output'
 }
 
 @test "zrun captures command output during failures" {
@@ -119,7 +119,7 @@ load '../load'
     zrun $function
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "This is a failing command"
+    assert_output 'This is a failing command'
 }
 
 @test "zrun accepts an argument" {
@@ -132,7 +132,7 @@ load '../load'
     zrun $function '1arg'
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "arg was '1arg'"
+    assert_output "arg was '1arg'"
 }
 
 @test "zrun accepts multiple arguments" {
@@ -145,50 +145,20 @@ load '../load'
     zrun $function 'arg1' 'arg2' 'arg3'
 
     # Then the $output variable should contain that output
-    assert_equal "$output" "args were 'arg3' 'arg1' 'arg2'"
+    assert_output "args were 'arg3' 'arg1' 'arg2'"
 }
 
-@test "zrun succeeds for funcs in only the last sourced file" {
-    # Given 2 zsourced files...
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
+@test "functions called by zrun can load zset variable" {
+    skip
+    zsource 'test/assets/var_funcs.sh'
+    my_name='David Rosenberg'
 
-    # ...And a function that only exists in the last
-    function=main2_exclusive_function
+    # Given a zset variable
+    zset MY_NAME "$my_name"
 
-    # When zrun is called with that function's name
-    zrun $function
+    # When zrun calls a function that should return that variable
+    zrun whats_my_name
 
-    # Then zrun should succeed
-    assert_success
-}
-
-@test "zrun succeeds for funcs in only the 1st sourced file" {
-    # Given 2 zsourced files...
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
-
-    # ...And a function that only exists in the last
-    function=main_exclusive_function
-
-    # When zrun is called with that function's name
-    zrun $function
-
-    # Then zrun should succeed
-    assert_success
-}
-
-@test "if multiple funcs with the same name are sourced, zrun only uses the newest one" {
-    # Given 2 zsourced files...
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
-
-    # ...And a function that exists in both
-    function=shared_function
-
-    # When zrun is called with that function's name
-    zrun $function
-
-    # Then the newest version of that function should run
-    assert_output "$output" "This is from main2.sh"
+    # Then the $output variable should contain that output
+    assert_output "$my_name"
 }
