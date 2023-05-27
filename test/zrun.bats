@@ -149,7 +149,6 @@ load '../load'
 }
 
 @test "functions called by zrun can load zset variable" {
-    skip
     zsource 'test/assets/var_funcs.sh'
     my_name='David Rosenberg'
 
