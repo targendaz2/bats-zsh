@@ -32,16 +32,10 @@ zrun() {
         return 1
     fi
 
-    # Format kwargs for getopt
-    args="$(sed -r 's/-([0-9]{1,3})/\1/g' <<< "$@")"
-    args=$(getopt -- "$args")
-    eval set -- "$args"
-    shift
-
     # Get the expected return code and add it to the run command
     run_cmd='run'
-    if [[ "$1" =~ ^[0-9]{1,3}$ ]]; then
-        run_cmd+=" -$1"
+    if [[ "$1" =~ ^-[0-9]{1,3}$ ]]; then
+        run_cmd+=" $1"
         shift
     fi
     
