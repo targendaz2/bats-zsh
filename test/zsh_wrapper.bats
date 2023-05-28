@@ -44,7 +44,7 @@ setup() {
     run src/zsh_wrapper.sh "$func_name"
 
     # zsh_wrapper should set $ouput
-    assert_output 'This is output'
+    assert_equal "$output" 'This is output'
 }
 
 @test "sets \$output to command output on failure" {
@@ -55,7 +55,7 @@ setup() {
     run src/zsh_wrapper.sh "$func_name"
 
     # zsh_wrapper should set $ouput
-    assert_output 'This is a failing command'
+    assert_equal "$output" 'This is a failing command'
 }
 
 @test "succeeds for funcs in only the last sourced file" {
