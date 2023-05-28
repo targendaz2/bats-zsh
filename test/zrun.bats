@@ -10,7 +10,7 @@ load '../load'
     assert_equal "$(cat ${TMPDIR}bats-zsh)" ''
 
     # When zrun is called
-    zrun -127 fake_command || true
+    run zrun -127 fake_command || true
 
     # Then zrun should fail
     assert_failure
@@ -24,7 +24,7 @@ load '../load'
     refute [ -e "$BATS_ZSH_WRAPPER" ]
 
     # When zrun is called
-    zrun -127 fake_command || true
+    run zrun -127 fake_command || true
 
     # Then zrun should fail
     assert_failure
@@ -38,7 +38,7 @@ load '../load'
     refute [ -x "$BATS_ZSH_WRAPPER" ]
 
     # When zrun is called
-    zrun -127 fake_command || true
+    run zrun -127 fake_command
 
     # Then zrun should fail
     assert_failure
@@ -51,7 +51,7 @@ load '../load'
     assert [ -x "$BATS_ZSH_WRAPPER" ]
 
     # When zrun is called
-    zrun -127 fake_command || true
+    zrun -127 fake_command
 
     # Then zrun shouldn't fail
     assert_not_equal $status 1
@@ -64,7 +64,7 @@ load '../load'
     command=''
 
     # When zrun is called with that empty string
-    zrun "$command" || true
+    run zrun "$command"
 
     # Then zrun should fail
     assert_failure
