@@ -65,6 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Source zsh files with `zsource`.
 - Run functions from the sourced zsh file with `zrun`.
 
+[v1.2.1]: <https://github.com/targendaz2/bats-zsh/compare/v1.2.0...v1.2.1>
 [v1.2.0]: <https://github.com/targendaz2/bats-zsh/compare/v1.1.0...v1.2.0>
 [v1.1.0]: <https://github.com/targendaz2/bats-zsh/compare/v1.0.2...v1.1.0>
 [v1.0.2]: <https://github.com/targendaz2/bats-zsh/compare/v1.0.1...v1.0.2>
