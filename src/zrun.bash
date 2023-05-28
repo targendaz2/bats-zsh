@@ -36,7 +36,7 @@ zrun() {
     fi
 
     # Run the command
-    $run_cmd "$BATS_ZSH_WRAPPER" "$BATS_ZSH_SOURCE" "$@"
+    $run_cmd "$BATS_ZSH_WRAPPER" "$@"
 
     # Don't fail so the tests can run
     return 0

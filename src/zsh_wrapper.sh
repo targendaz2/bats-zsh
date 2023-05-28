@@ -1,13 +1,9 @@
 #!/usr/bin/env zsh
 # shellcheck source=/dev/null
 
-# Get the name of the file to parse for sources from arg 1
-zsource_file="$1"
-shift
-
 # Source each file in order
 # shellcheck disable=SC2296
-zsources=("${(@f)$(<"$zsource_file")}")
+zsources=("${(@f)$(<"${BATS_TEST_TMPDIR}/zsource")}")
 for zsh_script in "${zsources[@]}"; do
     source "$zsh_script"
 done

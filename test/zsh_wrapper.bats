@@ -9,6 +9,9 @@ load '../src/zset'
 setup() {
     BATS_ZSH_SOURCE="${BATS_TEST_TMPDIR}/zsource"
     echo 'test/assets/main.sh' > "$BATS_ZSH_SOURCE"
+    echo 'test/assets/var_funcs.sh' >> "$BATS_ZSH_SOURCE"
+
+    BATS_ZSH_VARS="${BATS_TEST_TMPDIR}/zset"
 }
 
 @test "sets \$status to command exit code on success" {
@@ -16,7 +19,7 @@ setup() {
     func_name='successful_function'
 
     # When that function name is provided to zsh_wrapper
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" "$func_name"
+    run src/zsh_wrapper.sh "$func_name"
 
     # zsh_wrapper should set $status to 0
     assert_equal $status 0
@@ -27,7 +30,7 @@ setup() {
     func_name='failing_function'
 
     # When that function name is provided to zsh_wrapper
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" "$func_name"
+    run src/zsh_wrapper.sh "$func_name"
 
     # zsh_wrapper should set $status to 1
     assert_equal $status 1
@@ -38,7 +41,7 @@ setup() {
     func_name='successful_output_function'
 
     # When that function name is provided to zsh_wrapper
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" "$func_name"
+    run src/zsh_wrapper.sh "$func_name"
 
     # zsh_wrapper should set $ouput
     assert_output 'This is output'
@@ -49,7 +52,7 @@ setup() {
     func_name='failing_output_function'
 
     # When that function name is provided to zsh_wrapper
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" "$func_name"
+    run src/zsh_wrapper.sh "$func_name"
 
     # zsh_wrapper should set $ouput
     assert_output 'This is a failing command'
@@ -64,7 +67,7 @@ setup() {
     function=main2_exclusive_function
 
     # When the wrapper is called with that function's name
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" $function
+    run src/zsh_wrapper.sh $function
 
     # Then the command should succeed
     assert_success
@@ -79,7 +82,7 @@ setup() {
     function=main_exclusive_function
 
     # When the wrapper is called with that function's name
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" $function
+    run src/zsh_wrapper.sh $function
 
     # Then the command should succeed
     assert_success
@@ -94,41 +97,38 @@ setup() {
     function=shared_function
 
     # When the wrapper is called with that function's name
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" $function
+    run src/zsh_wrapper.sh $function
 
     # Then the newest version of that function should run
     assert_output 'This is from main2.sh'
 }
 
 @test "loads a variable set via zset" {
-    zsource 'test/assets/var_funcs.sh'
     var_value=Chris
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "doesn't load a variable not set via zset" {
-    zsource 'test/assets/var_funcs.sh'
 
     # Given a normally set variable
     MY_NAME=Chris
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then nothing should be returned
     assert_output ''
 }
 
 @test "loads multiple variables set via zset" {
-    zsource 'test/assets/var_funcs.sh'
     salutation='Mr.'
     first_name=Chris
     last_name=Smith
@@ -139,7 +139,7 @@ setup() {
     zset LAST_NAME "$last_name"
 
     # When a function that includes those variables in its output is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" greet_me
+    run src/zsh_wrapper.sh greet_me
 
     # Then the output should match watch's expected
     assert_output "Hello, $salutation $first_name $last_name!"
@@ -152,133 +152,124 @@ setup() {
     :
 
     # When a successful function is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" successful_function
+    run src/zsh_wrapper.sh successful_function
 
     # Then the command should succeed
     assert_success
 }
 
 @test "can handle variables with spaces in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with single quotes in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value="Chris O'Smith"
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with double quotes in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris "Oreo" Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with parenthesis in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris (Oreo) Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with square brackets in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris [Oreo] Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with curly brackets in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris {Oreo} Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with dollar signs in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris "$bills" Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with back slashes in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris "\usr\local\bin" Smith'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
 }
 
 @test "can handle variables with forward slashes in them" {
-    zsource 'test/assets/var_funcs.sh'
     var_value='Chris Smith/Smithy'
 
     # Given a zset variable
     zset MY_NAME "$var_value"
 
     # When a function that returns that variable is called
-    run src/zsh_wrapper.sh "$BATS_ZSH_SOURCE" whats_my_name
+    run src/zsh_wrapper.sh whats_my_name
 
     # Then the variable value should be returned
     assert_output "$var_value"
