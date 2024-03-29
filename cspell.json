@@ -1,0 +1,9 @@
+{
+  "version": "0.2",
+  "ignorePaths": ["*.lock", "node_modules/"],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": ["shellcheck", "targendaz", "zrun", "zset", "zsource"],
+  "ignoreWords": [],
+  "import": []
+}

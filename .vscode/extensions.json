@@ -1,6 +1,7 @@
 {
-    "recommendations": [
-        "jetmartin.bats",
-        "timonwong.shellcheck"
-    ]
+  "recommendations": [
+    "jetmartin.bats",
+    "esbenp.prettier-vscode",
+    "timonwong.shellcheck"
+  ]
 }
