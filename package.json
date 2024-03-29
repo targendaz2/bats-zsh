@@ -1,6 +1,6 @@
 {
   "name": "bats-zsh",
-  "version": "2.0.0",
+  "version": "1.2.1",
   "description": "Wrapper enabling Bats to test functions in Zsh scripts",
   "homepage": "https://github.com/targendaz2/bats-zsh#readme",
   "license": "CC0-1.0",

@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 load test_helper
-load '../load'
+load '../src/zsource'
 
 @test "zsource fails if provided an empty string" {
     # Given an empty string
@@ -16,7 +16,7 @@ load '../load'
 
 @test "zsource fails if provided a nonexistent file" {
     # Given a nonexistent file
-    file="test/assets/fake_zsh_script.sh"
+    file="tests/assets/fake_zsh_script.sh"
     refute [ -e "$file" ]
 
     # When that file is provided to zsource
@@ -28,7 +28,7 @@ load '../load'
 
 @test "zsource fails if the provided file isn't executable" {
     # Given a non-executable file
-    file="test/assets/non_executable_main.sh"
+    file="tests/assets/non_executable_main.sh"
     refute [ -x "$file" ]
 
     # When that file is provided to zsource
@@ -40,7 +40,7 @@ load '../load'
 
 @test "zsource succeeds if provided an existing, executable file" {
     # Given an existing, executable zsh file
-    file="test/assets/main.sh"
+    file="tests/assets/main.sh"
     assert [ -x "$file" ]
 
     # When that file is provided to zsource
@@ -63,7 +63,7 @@ load '../load'
 
 @test "zsource doesn't set ${BATS_TEST_TMPDIR}/zsource if provided a non-existent file" {
     # Given a nonexistent file
-    file="test/assets/fake_zsh_script.sh"
+    file="tests/assets/fake_zsh_script.sh"
     refute [ -e "$file" ]
 
     # When that file is provided to zsource
@@ -75,7 +75,7 @@ load '../load'
 
 @test "zsource doesn't set ${BATS_TEST_TMPDIR}/zsource if provided a non-executable file" {
      # Given a non-executable file
-    file="test/assets/non_executable_main.sh"
+    file="tests/assets/non_executable_main.sh"
     refute [ -x "$file" ]
 
     # When that file is provided to zsource
@@ -87,7 +87,7 @@ load '../load'
 
 @test "zsource sets ${BATS_TEST_TMPDIR}/zsource to the provided file's path if it's existing and executable" {
     # Given an existing, executable zsh file
-    file="test/assets/main.sh"
+    file="tests/assets/main.sh"
     assert [ -x "$file" ]
 
     # When that file is provided to zsource
@@ -99,9 +99,9 @@ load '../load'
 
 @test "zsource can source multiple files" {
     # Given 2 existing, executable zsh files
-    file1="test/assets/main.sh"
+    file1="tests/assets/main.sh"
     assert [ -x "$file1" ]
-    file2="test/assets/main2.sh"
+    file2="tests/assets/main2.sh"
     assert [ -x "$file2" ]
 
     # When both files are provided to zsource

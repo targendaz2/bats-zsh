@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 load test_helper
-load '../load'
+load '../src/zset'
 
 @test "zset fails if provided an empty string as the variable name" {
     # Given an empty variable name

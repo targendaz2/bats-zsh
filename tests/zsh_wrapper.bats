@@ -8,8 +8,8 @@ load '../src/zset'
 
 setup() {
     BATS_ZSH_SOURCE="${BATS_TEST_TMPDIR}/zsource"
-    echo 'test/assets/main.sh' > "$BATS_ZSH_SOURCE"
-    echo 'test/assets/var_funcs.sh' >> "$BATS_ZSH_SOURCE"
+    echo 'tests/assets/main.sh' > "$BATS_ZSH_SOURCE"
+    echo 'tests/assets/var_funcs.sh' >> "$BATS_ZSH_SOURCE"
 
     BATS_ZSH_VARS="${BATS_TEST_TMPDIR}/zset"
 }
@@ -60,8 +60,8 @@ setup() {
 
 @test "succeeds for funcs in only the last sourced file" {
     # Given 2 zsourced files...
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
+    zsource 'tests/assets/main.sh'
+    zsource 'tests/assets/main2.sh'
 
     # ...And a function that only exists in the last
     function=main2_exclusive_function
@@ -75,8 +75,8 @@ setup() {
 
 @test "succeeds for funcs in only the 1st sourced file" {
     # Given 2 zsourced files...
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
+    zsource 'tests/assets/main.sh'
+    zsource 'tests/assets/main2.sh'
 
     # ...And a function that only exists in the last
     function=main_exclusive_function
@@ -90,8 +90,8 @@ setup() {
 
 @test "if multiple funcs with the same name are sourced, only the newest one is used" {
     # Given 2 zsourced files...
-    zsource 'test/assets/main.sh'
-    zsource 'test/assets/main2.sh'
+    zsource 'tests/assets/main.sh'
+    zsource 'tests/assets/main2.sh'
 
     # ...And a function that exists in both
     function=shared_function
@@ -146,7 +146,7 @@ setup() {
 }
 
 @test "doesn't fail if no variables are set" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given no variables are set
     :

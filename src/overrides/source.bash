@@ -1,0 +1,3 @@
+source() {
+    zsource "$1"
+}

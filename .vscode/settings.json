@@ -3,6 +3,7 @@
     "editor.tabSize": 2
   },
   "material-icon-theme.files.associations": {
+    "*.bats": "test-js",
     ".shellcheckrc": "Settings"
   }
 }

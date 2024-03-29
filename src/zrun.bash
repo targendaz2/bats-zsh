@@ -32,8 +32,14 @@ zrun() {
         return 1
     fi
 
+    # Set the base run command
+    if type bats_run 2>&1 | grep -q "not found"; then
+        run_cmd='run'
+    else
+        run_cmd='bats_run'
+    fi
+
     # Get the expected return code and add it to the run command
-    run_cmd='run'
     if [[ "$1" =~ ^-[0-9]{1,3}$ ]]; then
         run_cmd+=" $1"
         shift

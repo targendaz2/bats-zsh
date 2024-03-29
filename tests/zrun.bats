@@ -3,7 +3,9 @@
 bats_require_minimum_version 1.5.0
 
 load test_helper
-load '../load'
+load '../src/zrun'
+load '../src/zset.bash'
+load '../src/zsource.bash'
 
 @test "zrun fails if \$TMPDIR/project-name isn't set" {
     # Given $TMPDIR/bats-zsh is empty
@@ -17,7 +19,7 @@ load '../load'
 }
 
 @test "zrun fails if BATS_ZSH_WRAPPER doesn't exist" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given BATS_ZSH_WRAPPER doesn't exist
     BATS_ZSH_WRAPPER='/tmp/fake828282/file.sh'
@@ -31,7 +33,7 @@ load '../load'
 }
 
 @test "zrun fails if BATS_ZSH_WRAPPER isn't executable" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given BATS_ZSH_WRAPPER isn't an executable file
     BATS_ZSH_WRAPPER='tests/assets/non_executable_zsh_wrapper.sh'
@@ -45,7 +47,7 @@ load '../load'
 }
 
 @test "zrun doesn't fail if BATS_ZSH_WRAPPER exists and is executable" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given BATS_ZSH_WRAPPER is an existing executable file
     assert [ -x "$BATS_ZSH_WRAPPER" ]
@@ -58,7 +60,7 @@ load '../load'
 }
 
 @test "zrun fails if provided an empty string" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given an empty string
     command=''
@@ -71,7 +73,7 @@ load '../load'
 }
 
 @test "zrun succeeds if the function it runs succeeds" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given the name of a successful function in the zsourced file
     function=successful_function
@@ -84,7 +86,7 @@ load '../load'
 }
 
 @test "zrun fails if the function it runs fails" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given the name of a failing function in the zsourced file
     function=failing_function
@@ -97,7 +99,7 @@ load '../load'
 }
 
 @test "zrun captures command output during successes" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given the name of a function that creates output
     function=successful_output_function
@@ -110,7 +112,7 @@ load '../load'
 }
 
 @test "zrun captures command output during failures" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given the name of a function that creates output
     function=failing_output_function
@@ -123,7 +125,7 @@ load '../load'
 }
 
 @test "zrun accepts an argument" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given the name of a function that creates output
     function=function_with_arg
@@ -136,7 +138,7 @@ load '../load'
 }
 
 @test "zrun accepts multiple arguments" {
-    zsource 'test/assets/main.sh'
+    zsource 'tests/assets/main.sh'
 
     # Given the name of a function that creates output
     function=function_with_many_args
@@ -149,7 +151,7 @@ load '../load'
 }
 
 @test "functions called by zrun can load zset variable" {
-    zsource 'test/assets/var_funcs.sh'
+    zsource 'tests/assets/var_funcs.sh'
     my_name='David Rosenberg'
 
     # Given a zset variable
