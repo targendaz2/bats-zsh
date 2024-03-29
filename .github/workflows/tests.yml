@@ -38,7 +38,7 @@ jobs:
       - run: mkdir -p junit
 
       - name: Run bats tests
-        run: ./node_modules/.bin/bats --recursive --formatter junit test/ > junit/${{ matrix.os }}.xml
+        run: ./node_modules/.bin/bats --recursive --formatter junit tests/ > junit/${{ matrix.os }}.xml
 
       - name: Publish bats test results
         uses: dorny/test-reporter@v1
