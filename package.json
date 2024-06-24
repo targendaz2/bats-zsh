@@ -10,9 +10,7 @@
     "zsh",
     "zshell",
     "test",
-    "unit",
     "assert",
-    "assertion",
     "helper"
   ],
   "homepage": "https://github.com/targendaz2/bats-zsh#readme",

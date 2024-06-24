@@ -8,8 +8,21 @@
     "node_modules/"
   ],
   "dictionaryDefinitions": [],
-  "dictionaries": ["misc", "node", "npm", "typescript"],
-  "words": ["shellcheck", "targendaz", "zrun", "zset", "zshell", "zsource"],
+  "dictionaries": [
+    "misc",
+    "node",
+    "npm",
+    "typescript"
+  ],
+  "words": [
+    "shellcheck",
+    "sublicensable",
+    "targendaz",
+    "zrun",
+    "zset",
+    "zshell",
+    "zsource"
+  ],
   "ignoreWords": [],
   "import": []
 }

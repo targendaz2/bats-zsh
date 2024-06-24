@@ -4,7 +4,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "package.json": ".eslint*, .markdown*, .prettierrc*, .shellcheck*, .yarn*, cspell*, yarn*"
+    "package.json": ".eslint*, .markdown*, .prettier*, .shellcheck*, .yarn*, cspell*, yarn*"
   },
   "markdownlint.config": {
     "extends": "./.markdownlintrc"
