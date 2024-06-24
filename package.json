@@ -1,7 +1,7 @@
 {
   "name": "bats-zsh",
   "version": "1.2.1",
-  "description": "Wrapper enabling Bats to test functions in Zsh scripts",
+  "description": "Plugin enabling Bats to test functions in Zsh scripts",
   "packageManager": "yarn@4.3.1",
   "keywords": [
     "bats",

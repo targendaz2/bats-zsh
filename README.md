@@ -5,14 +5,14 @@
 ![NPM Version](https://img.shields.io/npm/v/bats-zsh?logo=npm&logoColor=%23999999)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/targendaz2/bats-zsh/test.yml?logo=github&label=tests&logoColor=%23999999)
 
-Wrapper enabling [Bats](https://github.com/bats-core/bats-core) to source and test Zsh scripts.
+Plugin enabling [Bats](https://github.com/bats-core/bats-core) to source and test Zsh scripts.
 
-## Install
+## Installation
 
-`npm` is the preferred installation method.
+This package is available on the npm registry as `bats-zsh`.
 
 ```bash
-npm install -D bats-zsh
+npm install -D bats bats-support bats-zsh
 ```
 
 ## Usage
