@@ -1,0 +1,54 @@
+name: Lint and Run Automated Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Run Linters
+        run: yarn lint
+
+  test:
+    strategy:
+      matrix:
+        os: ["macos-latest", "ubuntu-latest"]
+        include:
+          - os: ubuntu-latest
+            installzsh: true
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - if: matrix.installzsh
+        run: sudo apt-get install zsh
+
+      - uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Run bats tests
+        run: npm test --recursive

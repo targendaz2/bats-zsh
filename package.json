@@ -2,41 +2,7 @@
   "name": "bats-zsh",
   "version": "1.2.1",
   "description": "Wrapper enabling Bats to test functions in Zsh scripts",
-  "homepage": "https://github.com/targendaz2/bats-zsh#readme",
-  "license": "CC0-1.0",
-  "author": "David Rosenberg <david@dgrdev.com>",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/targendaz2/bats-zsh.git"
-  },
-  "bugs": {
-    "url": "https://github.com/targendaz2/bats-zsh/issues"
-  },
-  "directories": {
-    "lib": "src",
-    "test": "test"
-  },
-  "files": [
-    "load.bash",
-    "src"
-  ],
-  "scripts": {
-    "test": "bats ${CI+-t}",
-    "shellcheck": "shellcheck src/*"
-  },
-  "devDependencies": {
-    "bats": "^1.11.0",
-    "bats-assert": "github:bats-core/bats-assert",
-    "bats-support": "github:bats-core/bats-support",
-    "cspell": "^8.6.1",
-    "prettier": "^3.2.5",
-    "prettier-plugin-sh": "^0.14.0",
-    "shellcheck": "^2.2.0"
-  },
-  "peerDependencies": {
-    "bats": "^1.11.0",
-    "bats-support": "*"
-  },
+  "packageManager": "yarn@4.3.1",
   "keywords": [
     "bats",
     "bash",
@@ -48,5 +14,44 @@
     "assert",
     "assertion",
     "helper"
-  ]
+  ],
+  "homepage": "https://github.com/targendaz2/bats-zsh#readme",
+  "bugs": {
+    "url": "https://github.com/targendaz2/bats-zsh/issues"
+  },
+  "license": "CC0-1.0",
+  "files": [
+    "load.bash",
+    "src/"
+  ],
+  "author": "David Rosenberg <david@dgrdev.com>",
+  "directories": {
+    "lib": "src"
+  },
+  "repository": "github:targendaz2/bats-zsh",
+  "scripts": {
+    "test": "./node_modules/bats/bin/bats tests",
+    "lint": "yarn lint:sh",
+    "lint:sh": "shellcheck src/*.{sh,bash} src/overrides/*.bash"
+  },
+  "devDependencies": {
+    "bats": "^1.11.0",
+    "bats-assert": "https://github.com/bats-core/bats-assert.git#commit=e2d855bc78619ee15b0c702b5c30fb074101159f",
+    "bats-support": "https://github.com/bats-core/bats-support.git#commit=9bf10e876dd6b624fe44423f0b35e064225f7556",
+    "cspell": "^8.9.1",
+    "prettier": "^3.3.2",
+    "prettier-plugin-sh": "^0.14.0"
+  },
+  "peerDependencies": {
+    "bats": "^1.11.0",
+    "bats-support": "*"
+  },
+  "peerDependenciesMeta": {
+    "bats": {
+      "optional": false
+    },
+    "bats-support": {
+      "optional": false
+    }
+  }
 }

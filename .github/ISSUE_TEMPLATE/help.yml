@@ -1,0 +1,19 @@
+name: Help Request
+description: Ask for help.
+title: "[Help]: "
+labels: ["help wanted"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What do you need help with?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What steps have you taken?
+      description: How have you tried to answer this question on your own?
+    validations:
+      required: true

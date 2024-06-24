@@ -1,7 +1,13 @@
 {
   "recommendations": [
-    "jetmartin.bats",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
+    "ms-vscode-remote.remote-containers",
+    "github.vscode-pull-request-github",
+    "mads-hartmann.bash-ide-vscode",
+    "jetmartin.bats",
     "timonwong.shellcheck"
   ]
 }

@@ -1,0 +1,33 @@
+name: Publish to npmjs
+
+on:
+  release:
+    types: [published]
+
+env:
+  NODE_ENV: production
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: yarn
+          cache-dependency-path: yarn.lock
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Publish the package
+        run: yarn npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

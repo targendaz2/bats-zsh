@@ -1,0 +1,26 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How can you reproduce the bug?
+      description: Include step-by-step instructions.
+    validations:
+      required: true

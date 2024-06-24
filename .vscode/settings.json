@@ -1,9 +1,24 @@
 {
-  "[json]": {
-    "editor.tabSize": 2
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": ".eslint*, .markdown*, .prettierrc*, .shellcheck*, .yarn*, cspell*, yarn*"
+  },
+  "markdownlint.config": {
+    "extends": "./.markdownlintrc"
   },
   "material-icon-theme.files.associations": {
     "*.bats": "test-js",
-    ".shellcheckrc": "Settings"
+    ".markdownlintrc": "Settings",
+    ".shellcheckrc": "Settings",
+    "cspell.json": "Settings"
+  },
+  "material-icon-theme.folders.associations": {
+    "dicts": "Docs"
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-issue-config.json": ".github/ISSUE_TEMPLATE/config.yml"
   }
 }

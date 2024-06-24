@@ -1,0 +1,28 @@
+{
+  "name": "bats-zsh",
+  "build": {
+    "context": "..",
+    "dockerfile": "./Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.vscode-pull-request-github",
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-docker",
+        "EditorConfig.EditorConfig",
+        "github.vscode-github-actions",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "VisualStudioExptTeam.vscodeintellicode-completions",
+        "DavidAnson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "ms-vscode-remote.remote-containers",
+        "mads-hartmann.bash-ide-vscode",
+        "jetmartin.bats",
+        "timonwong.shellcheck",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "remoteUser": "node"
+}
