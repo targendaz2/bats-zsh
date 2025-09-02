@@ -10,7 +10,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Enable Corepack
         run: corepack enable
@@ -41,7 +41,7 @@ jobs:
       - if: matrix.installzsh
         run: sudo apt-get install zsh
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Enable Corepack
         run: corepack enable
